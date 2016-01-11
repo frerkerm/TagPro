@@ -1,0 +1,29 @@
+// ==UserScript==
+// @name       		Tagpro Disable disableControls
+// @version    		0.2
+// @description  	Allows the arrow keys to be used while the chat window is open, also prevents sticky arrow keys
+// @include      	http://tagpro-*.koalabeast.com:*
+// @include			http://tangent.jukejuice.com:*
+// @include			http://maptest.newcompte.fr:*
+// @author  		Some Ball -1
+// ==/UserScript==
+
+$(function()
+  {
+      $(document).keydown(function(event) {
+          if($('#chat').css('display')=='block') //if the chat window is visable
+          {
+              tagpro.disableControls = false; //prevent arrow keys from being disabled
+          }
+      });
+      $('#chat').keydown(function(event) {
+          //if(event.which==65 || event.which==68 || event.which==83 || event.which==87) //pressed A, D, S, or W
+          if(event.which!=13 && (event.which<37 || event.which>40)) //if any key but arrow key and enter is pressed
+          {
+              event.stopPropagation(); //prevent the page from seeing you pressed the key
+          }
+      });
+      $('#chat').blur(function() {
+          $('#chat').focus();
+      });
+  });
